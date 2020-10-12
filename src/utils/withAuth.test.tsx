@@ -1,5 +1,5 @@
 import React from "react";
-import { withAuth } from "../utils/withAuth";
+import { withAuth } from "./withAuth";
 import { isLoggedIn } from "@/api/auth";
 import { mount, ReactWrapper } from "enzyme";
 import { sleep } from "@/utils/sleep";

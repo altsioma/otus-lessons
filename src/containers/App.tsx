@@ -3,8 +3,8 @@ import { Graph } from "../components/Graph/Graph";
 import { Button } from "../components/Button/Button";
 import { RequestLog } from "../components/RequsetLog/RequestLog";
 import { Settings } from "../containers/SettingsForm/SettingsForm";
-import { formatDate } from "../util";
 import { AnimationControls } from "./AnimationControls/AnimationControls";
+import { getCurrentDate } from "../utils/date";
 import "../css/main.css";
 
 import {
@@ -49,8 +49,8 @@ export class MainApp extends React.Component<IAppProps, IAppState> {
       currency: "RUB",
       timeCall: null,
       period: {
-        from: "2020-09-01",
-        to: formatDate(),
+        from: "2020-07-01",
+        to: getCurrentDate(),
       },
       playState: "stopped",
       animationSpeed: 1

@@ -1,8 +1,8 @@
 import React from "react";
 import { login } from "@/api/auth";
 import { mount } from "enzyme";
-import { LoginForm } from "../containers/LoginForm";
-import { User } from "../containers/User";
+import { LoginForm } from "./LoginForm";
+import { User } from "./User";
 const mockHistory = { push: jest.fn() };
 
 jest.mock("react-router-dom", () => ({
