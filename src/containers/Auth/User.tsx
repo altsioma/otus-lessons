@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { logout } from "../api/auth";
+import { logout } from "@/api/auth";
 import { useHistory } from "react-router-dom";
 
 export const User = () => {

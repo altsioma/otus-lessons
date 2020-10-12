@@ -8,7 +8,7 @@
     "start": "npx webpack-dev-server --mode development --open --hot",
     "lint": "npx eslint --ext .js,.jsx,.ts,.tsx --fix src/",
     "test": "npx jest",
-    "storybook": "start-storybook -s ./ -p 6006",
+    "storybook": "start-storybook -s . -p 6006",
     "build-storybook": "build-storybook"
   },
   "repository": {

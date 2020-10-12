@@ -3,6 +3,7 @@ import { login } from "@/api/auth";
 import { mount } from "enzyme";
 import { LoginForm } from "./LoginForm";
 import { User } from "./User";
+
 const mockHistory = { push: jest.fn() };
 
 jest.mock("react-router-dom", () => ({

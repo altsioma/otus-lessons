@@ -26,9 +26,7 @@ module.exports = {
     });
     return {
       ...config,
-      resolve: {
-        extensions: custom.resolve.extensions
-      },
+      resolve: custom.resolve,
       module: {
         ...config.module,
         rules: [...config.module.rules, ...webpackRules],

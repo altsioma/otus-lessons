@@ -1,11 +1,11 @@
 import React from "react";
-import { InitialConfig } from "../data";
-import { MainApp } from "./App";
-import { Graph } from "../components/Graph/Graph";
-import { formatDate } from "../util/";
+import { InitialConfig } from "../../data";
+import { Currency } from "./Currency";
+import { Graph } from "../../components/Graph/Graph";
+import { getCurrentDate } from "../../utils/date";
 import { mount } from "enzyme";
-import { responseRUB } from "../../__mocks__/rates";
-import { getCurrency } from "../services/Currency";
+import { responseRUB } from "../../../__mocks__/rates";
+import { getCurrency } from "../../services/Currency";
 
 global.fetch = jest.fn().mockImplementation(() =>
   Promise.resolve({
@@ -28,11 +28,11 @@ describe("Integration tests cases", () => {
     expect(
       await getCurrency("RUB", {
         from: "2020-07-01",
-        to: formatDate(),
+        to: getCurrentDate(),
       })
     ).toEqual(responseRUB);
   });
-  const appComponent = mount(<MainApp initial={InitialConfig} />);
+  const appComponent = mount(<Currency initial={InitialConfig} />);
 
   it("first redner and initial state test [constructor and initial state test]", () => {
     expect(
