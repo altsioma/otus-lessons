@@ -10,32 +10,13 @@ export const fetchPeople = createAsyncThunk("people/fetchData", () =>
   })
 );
 
-type State = {
-  loading: boolean;
-  data: PeopleResponse | null;
-  error: string;
-  show: boolean;
-};
-const initialState: State = {
-  loading: false,
-  data: null,
-  error: "",
-  show: false,
-};
+type State = { loading: boolean; data: PeopleResponse | null; error: string };
+const initialState: State = { loading: false, data: null, error: "" };
 
 export const peopleSlice = createSlice({
   name: "people",
   initialState,
-  reducers: {
-    clickAction: {
-      reducer(state, action) {
-        state.show = action.payload.show;
-      },
-      prepare(payload: boolean) {
-        return { payload, meta: { probability: 0.5 } };
-      },
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchPeople.pending, (state) => {
       state.loading = true;
@@ -50,5 +31,3 @@ export const peopleSlice = createSlice({
     });
   },
 });
-
-export const { clickAction } = peopleSlice.actions;

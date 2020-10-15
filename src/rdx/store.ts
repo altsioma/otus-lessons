@@ -1,10 +1,5 @@
-import {
-  configureStore,
-  combineReducers,
-  getDefaultMiddleware,
-} from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { peopleSlice } from "./reducer/people";
-import { probabilityMiddleware } from "./middlewares/probability";
 
 const reducer = combineReducers({
   people: peopleSlice.reducer,
@@ -12,7 +7,6 @@ const reducer = combineReducers({
 
 export const store = configureStore({
   reducer,
-  middleware: [...getDefaultMiddleware(), probabilityMiddleware],
 });
 
 export type PeopleState = ReturnType<typeof reducer>;
