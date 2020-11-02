@@ -3,7 +3,7 @@ const app = express();
 const puppeteerRenderer = require('puppeteer-renderer-middleware');
 app.use(
 	puppeteerRenderer({
-		url: 'http://localhost:5000/renderer',
+		url: 'http://localhost:8080/renderer',
 	}),
 );
 
