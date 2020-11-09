@@ -19,7 +19,7 @@ export function* getCurrency() {
     const data = yield call(ratesToCurrency, result.rates, currency);
     yield put(actions.fulfilled(data));
   } catch (e) {
-    yield put(actions.rejected(e));
+    yield put(actions.rejected(e.message));
   }
 }
 

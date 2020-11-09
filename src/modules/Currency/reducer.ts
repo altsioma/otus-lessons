@@ -3,13 +3,13 @@ import { createAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 export type CurrencyAction = PayloadAction<State>;
 type State = {
   loading: boolean;
-  data: number[] | null;
+  data: number[];
   error: string | null;
 };
 
 export const initialState: State = {
   loading: false,
-  data: null,
+  data: [],
   error: null,
 };
 

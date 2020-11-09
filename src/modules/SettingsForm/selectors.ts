@@ -1,9 +1,10 @@
 import { CurrencyState } from "@/store";
+import { DatePeriodType } from "@types";
+import { CurrencyAvaiableType } from "@/types";
 
-export function selectPeriod(state: CurrencyState) {
-  return state.settings.period;
-}
+export const selectPeriod = (state: CurrencyState): DatePeriodType =>
+  state.settings.period;
 
-export function selectCurrentCurrency(state: CurrencyState) {
-  return state.settings.currency;
-}
+export const selectCurrentCurrency = (
+  state: CurrencyState
+): CurrencyAvaiableType => state.settings.currency;

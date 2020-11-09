@@ -5,17 +5,7 @@ import {
   DatePeriodType,
 } from "@/types";
 import { http } from "@/utils/http";
-
-const eventAPICall = new CustomEvent("APICall", {
-  detail: () => {
-    const time = new Intl.DateTimeFormat("ru-RU", {
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-    }).format();
-    return `Last API call at: ${time}`;
-  },
-});
+import { formatCurrency } from "@/utils/format";
 export interface IRates {
   [name: string]: { [key: string]: number };
 }
@@ -29,39 +19,45 @@ export interface ICurrencyExchange {
 export const getCurrencyFromApi = (
   currency: CurrencyAvaiableType,
   period: DatePeriodType
-) => {
-  window.dispatchEvent(eventAPICall);
-  return http<ICurrencyExchange>(
+): Promise<ICurrencyExchange> => {
+  return http(
     `https://api.exchangeratesapi.io/history?start_at=${period.from}&end_at=${period.to}&symbols=${currency}`
   );
 };
 
-export const normalize = (value: number, min: number, max: number) =>
+export const normalize = (value: number, min: number, max: number): number =>
   Math.abs((value - min) / (max - min));
 
 export const ratesToCurrency = (
   rates: IRates,
   currency: CurrencyAvaiableType
-) => {
-  const data = [];
-  for (const key in rates) {
-    data.push(rates[key][currency]);
-  }
-  return data;
+): number[] =>
+  Object.keys(rates)
+    .sort()
+    .map((date) => formatCurrency(rates[date][currency]));
+
+export const getMinMax = (
+  valuesArray: number[]
+): Record<"min" | "max", number> => {
+  const max = Math.max(...valuesArray);
+  const min = Math.min(...valuesArray);
+  return { min, max };
 };
 
 export const currencyToGraph = (
-  data: number[] | null,
-  area: AreaType
+  data: number[],
+  area: AreaType,
+  offset = 65
 ): GraphDataType => {
-  if (data) {
-    const xInterval = area.width / data.length;
-    const max = Math.max.apply(null, data);
-    const min = Math.min.apply(null, data);
-    return data.map((val, i) => [
-      xInterval * i++,
-      normalize(val, min, max) * area.height,
-    ]);
+  if (data.length) {
+    const xInterval = (area.width - offset) / data.length;
+    const minMax = getMinMax(data);
+    return [...data]
+      .reverse()
+      .map((val, i) => [
+        xInterval * i++ + offset,
+        normalize(val, minMax.min, minMax.max) * area.height,
+      ]);
   }
   return [];
 };

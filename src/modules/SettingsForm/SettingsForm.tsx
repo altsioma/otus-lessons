@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "@/components/Input/Input";
 import { Button } from "@/components/Button/Button";
-import { settingsSlice,setSettings } from "@/modules/SettingsForm/reducer";
+import { settingsSlice, setSettings } from "@/modules/SettingsForm/reducer";
 import { CurrencyState } from "@/store";
 import { connect } from "react-redux";
 import { AreaType, DatePeriodType } from "@/types";
@@ -20,25 +20,27 @@ export type Props = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
 
 export class SettingsFormComponent extends React.PureComponent<Props> {
-  formHandle = (ev: React.FormEvent) => {
+  formHandle = (ev: React.FormEvent): void => {
     ev.preventDefault();
   };
 
-  changePeriod = (prop: keyof DatePeriodType) => (ev: React.ChangeEvent) => {
+  changePeriod = (prop: keyof DatePeriodType) => (
+    ev: React.ChangeEvent
+  ): void => {
     this.props.changePeriod({
       ...this.props.period,
       [prop]: (ev.target as HTMLInputElement).value,
     } as any);
   };
 
-  changeArea = (prop: keyof AreaType) => (ev: React.ChangeEvent) => {
+  changeArea = (prop: keyof AreaType) => (ev: React.ChangeEvent): void => {
     this.props.changeArea({
       ...this.props.area,
       [prop]: (ev.target as HTMLInputElement).value,
     } as any);
   };
 
-  render() {
+  render(): React.ReactNode {
     return (
       <form style={{ margin: "10px 0" }} onSubmit={this.formHandle}>
         <fieldset>
@@ -60,7 +62,7 @@ export class SettingsFormComponent extends React.PureComponent<Props> {
           <Button
             isFormButton={true}
             textButton="Update"
-            onClick={()=>this.props.setSettings()}
+            onClick={() => this.props.setSettings()}
           />
           <Input
             labelText="Width:"

@@ -4,13 +4,16 @@
   "description": "homeworks for otus lessons",
   "main": "index.ts",
   "scripts": {
-    "build": "npx webpack --mode production",
-    "start": "npx webpack-dev-server --mode development --open --hot",
-    "lint": "npx eslint --ext .js,.jsx,.ts,.tsx --fix src/",
-    "test": "npx jest",
-    "check": "npm run lint && npm run test",
+    "build": "webpack --mode production",
+    "start": "webpack-dev-server --mode development --open --hot",
+    "lint": "eslint --ext .js,.jsx,.ts,.tsx --fix src/",
+    "test": "jest",
+    "check": "lint && test",
     "storybook": "start-storybook -s ./ -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "next:dev": "next dev",
+    "next:build": "next build",
+    "next:start": "next start"
   },
   "repository": {
     "type": "git",
@@ -69,6 +72,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
+    "next": "^10.0.0",
     "ramda": "^0.27.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

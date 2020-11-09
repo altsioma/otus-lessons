@@ -12,19 +12,19 @@ export class TimeLogger extends React.Component<null, IAppState> {
       timeCall: null,
     };
   }
-  componentDidMount() {
+  componentDidMount(): void {
     window.addEventListener("APICall", (event: CustomEventInit) =>
       this.setState({ timeCall: event.detail() })
     );
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     window.removeEventListener("APICall", (event: CustomEventInit) =>
       this.setState({ timeCall: event.detail() })
     );
   }
 
-  render() {
+  render(): React.ReactNode {
     return this.state.timeCall ? (
       <RequestLog request={this.state.timeCall} />
     ) : null;

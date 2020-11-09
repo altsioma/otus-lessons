@@ -2,17 +2,17 @@ import { sleep } from "@/utils/sleep";
 
 export const login = async (name: string): Promise<void> => {
   await sleep(500);
-  await localStorage.setItem("login", name);
+  localStorage.setItem("login", name);
 };
 
 export const logout = async (): Promise<void> => {
   await sleep(300);
-  await localStorage.removeItem("login");
+  localStorage.removeItem("login");
 };
 
 export const getUserSession = async (): Promise<string> => {
   await sleep(1000);
-  const login = await localStorage.getItem("login");
+  const login = localStorage.getItem("login");
   return login || "";
 };
 
@@ -21,7 +21,7 @@ export const isLoggedIn = async (): Promise<boolean> => {
   return Boolean(login);
 };
 
-export const sentStatistic = async () => {
+export const sentStatistic = async (): Promise<void> => {
   await sleep(1000);
   console.log("successed");
 };

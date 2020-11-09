@@ -1,39 +1,51 @@
 import React from "react";
 import { SVGPath } from "@/components/SVGPath/SVGPath";
 import { AreaType } from "@/types";
+import { formatCurrency } from "@/utils/format";
 
 interface IGraphBody {
   area: AreaType;
   xStep?: number;
   yStep?: number;
+  length: number;
+  labelsRange?: Record<"min" | "max", number>;
 }
 const axisOptions = {
-  color: "black",
-  strokeWidth: 3,
+  color: "blue",
+  strokeWidth: 2,
 };
 export class GraphBody extends React.Component<IGraphBody> {
   constructor(props: IGraphBody) {
     super(props);
   }
-  drawGrid() {
-    const { area, xStep = 70, yStep = 70 } = this.props;
+  offset = 65;
+  drawGrid(): React.ReactNode {
+    const { area, xStep = this.offset, yStep = 50, labelsRange } = this.props;
+    const { min, max } = labelsRange;
+    const labelStep = (max - min) / Math.floor(area.height / yStep);
     const grid: JSX.Element[] = [];
+    let label = max;
     for (let i = 0; i <= area.height; i = i + yStep) {
       grid.push(
-        <SVGPath
-          className="horizontal-lines"
-          key={`height_${i}`}
-          color="grey"
-          strokeWidth={1}
-          coords={{
-            offset: { x: 0, y: i },
-            multiplier: 1,
-            data: [[area.width, i]],
-          }}
-        />
+        <React.Fragment key={`height_${i}`}>
+          <text fill="blue" x={5} y={i + 15}>
+            {formatCurrency(label)}
+          </text>
+          <SVGPath
+            className="horizontal-lines"
+            color="grey"
+            strokeWidth={1}
+            coords={{
+              offset: { x: this.offset, y: i },
+              multiplier: 1,
+              data: [[area.width, i]],
+            }}
+          />
+        </React.Fragment>
       );
+      label -= labelStep;
     }
-    for (let i = 0; i <= area.width; i = i + xStep) {
+    for (let i = this.offset; i <= area.width; i = i + xStep) {
       grid.push(
         <SVGPath
           className="vertical-lines"
@@ -50,27 +62,32 @@ export class GraphBody extends React.Component<IGraphBody> {
     }
     return grid;
   }
-  render() {
+  render(): React.ReactNode {
     return (
       <svg width={this.props.area.width} height={this.props.area.height}>
+        {this.props.children}
+        {this.drawGrid()}
         <SVGPath
           {...axisOptions}
           coords={{
-            offset: { x: 0, y: 0 },
+            offset: { x: this.offset, y: 0 },
             multiplier: 1,
-            data: [[0, this.props.area.height]],
+            data: [[this.offset, this.props.area.height]],
           }}
         />
+        {this.props.labelsRange && (
+          <text fill="grey" x={5} y={this.props.area.height - 3}>
+            {formatCurrency(this.props.labelsRange.min)}
+          </text>
+        )}
         <SVGPath
           {...axisOptions}
           coords={{
-            offset: { x: 0, y: this.props.area.height },
+            offset: { x: this.offset, y: this.props.area.height },
             multiplier: 1,
             data: [[this.props.area.width, this.props.area.height]],
           }}
         />
-        {this.drawGrid()}
-        {this.props.children}
       </svg>
     );
   }

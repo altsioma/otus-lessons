@@ -1,3 +1,6 @@
+# next.js build output
+.next
+
 # ide
 .vscode
 
