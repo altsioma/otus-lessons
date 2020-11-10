@@ -38,7 +38,7 @@ describe("autostop when length over work correctly", () => {
   it("autostop", async () => {
     const onAnimationStateChange = jest.fn();
     act(() => {
-      const wrapper = mount(
+      mount(
         <svg>
           <WrappedComponent
             {...mockSVGProps}
@@ -58,7 +58,7 @@ describe("autostop when length over work correctly", () => {
 describe("is animations states works correctly", () => {
   it("when stop case setInterval does not'work", async () => {
     act(() => {
-      const wrapper = mount(
+      mount(
         <svg>
           <WrappedComponent {...mockSVGProps} speed={1} playState={"stopped"} />
         </svg>
@@ -70,7 +70,7 @@ describe("is animations states works correctly", () => {
 
   it("when pause case setInterval does not'work", async () => {
     act(() => {
-      const wrapper = mount(
+      mount(
         <svg>
           <WrappedComponent {...mockSVGProps} speed={1} playState={"paused"} />
         </svg>
@@ -82,7 +82,7 @@ describe("is animations states works correctly", () => {
 
   it("when play case setInterval must go on", async () => {
     act(() => {
-      const wrapper = mount(
+      mount(
         <svg>
           <WrappedComponent {...mockSVGProps} speed={1} playState={"running"} />
         </svg>

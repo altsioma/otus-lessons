@@ -5,6 +5,10 @@ import { actions } from "./reducer";
 import { InitialConfig } from "@/data";
 import { act } from "react-dom/test-utils";
 
+beforeEach(() => {
+  jest.clearAllMocks();
+});
+
 describe("Settings Form", () => {
   const setSettings = jest.fn();
   const changePeriod = jest.spyOn(actions, "changePeriod");

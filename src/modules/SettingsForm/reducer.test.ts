@@ -49,6 +49,3 @@ describe("Test settings reducers", () => {
     );
   });
 });
-
-// describe("changeArea");
-// describe("changePeriod");
