@@ -8,7 +8,7 @@ interface IGraphBody {
   xStep?: number;
   yStep?: number;
   length: number;
-  labelsRange?: Record<"min" | "max", number>;
+  labelsRange: Record<"min" | "max", number>;
 }
 const axisOptions = {
   color: "blue",
@@ -21,7 +21,7 @@ export class GraphBody extends React.Component<IGraphBody> {
   offset = 65;
   drawGrid(): React.ReactNode {
     const { area, xStep = this.offset, yStep = 50, labelsRange } = this.props;
-    const { min, max } = labelsRange;
+    const { min, max } = labelsRange || { min: 0, max: area.height };
     const labelStep = (max - min) / Math.floor(area.height / yStep);
     const grid: JSX.Element[] = [];
     let label = max;

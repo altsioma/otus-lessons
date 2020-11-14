@@ -7,7 +7,7 @@ import {
   AnimationStateType,
   AnimationSpeedType,
 } from "@/types";
-import { withAnimate } from "@/utils/withAnimate";
+import { withSVGAnimate } from "@/utils/withSVGAnimate";
 
 interface IGraphProps {
   data: GraphDataType;
@@ -24,7 +24,7 @@ export const Graph: React.FC<IGraphProps> = ({ ...props }) => {
   const { multiplier = 1, color } = props;
   const [x, y] = props.data[0];
   const firstGraphPoint = { x, y };
-  const AnimateGraph = withAnimate(SVGPath);
+  const AnimateGraph = withSVGAnimate(SVGPath);
 
   return (
     <AnimateGraph

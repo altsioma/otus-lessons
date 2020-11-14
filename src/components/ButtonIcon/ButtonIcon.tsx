@@ -1,11 +1,11 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import styled from "@emotion/styled";
 import { css } from "@emotion/core";
 import { AnimationControl } from "@/types";
 
 export interface ButtonType
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  onClick: (e) => void;
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
   icon: AnimationControl;
   isActive?: boolean;
 }
@@ -40,7 +40,7 @@ export const ButtonIconWrapper = styled.button`
   ${({ isActive }: ButtonType) => (isActive ? ActiveButton : "")}
 `;
 
-export const ButtonIcon: React.FC<ButtonType> = ( props ) => (
+export const ButtonIcon: React.FC<ButtonType> = (props) => (
   <ButtonIconWrapper {...props}>
     <img src={`/img/${props.icon}.png`} />
   </ButtonIconWrapper>

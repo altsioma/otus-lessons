@@ -23,5 +23,5 @@ export const isLoggedIn = async (): Promise<boolean> => {
 
 export const sentStatistic = async (): Promise<void> => {
   await sleep(1000);
-  console.log("successed");
+  // console.info("successed");
 };

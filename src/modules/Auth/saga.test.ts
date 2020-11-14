@@ -5,7 +5,12 @@ import * as matchers from "redux-saga-test-plan/matchers";
 import { checkUserSession, saveUserSession, loginSaga } from "./saga";
 import { CheckState, actions, reducer } from "./reducer";
 
-import { getUserSession, login, logout, sentStatistic } from "@/modules/Auth/authApi";
+import {
+  getUserSession,
+  login,
+  logout,
+  sentStatistic,
+} from "@/modules/Auth/authApi";
 
 describe("Login Saga", () => {
   describe("Login success", () => {

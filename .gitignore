@@ -10,6 +10,10 @@ storybook-static/
 coverage/
 reports/
 
+#test
+coverage/
+reports/
+
 # stryker temp files
 .stryker-tmp
 

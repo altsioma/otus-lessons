@@ -19,7 +19,7 @@ export type PeriodAction = PayloadAction<DatePeriodType>;
 export type CurrecnyAction = PayloadAction<CurrencyAvaiableType>;
 export type ColorSetAction = PayloadAction<ColorSetType>;
 
-const initialState: SettingsState = {
+export const initialState: SettingsState = {
   area: {
     width: 600,
     height: 300,
@@ -31,7 +31,7 @@ const initialState: SettingsState = {
   currency: "RUB",
   color: "red",
 };
-export const setSettings = createAction("currency/setSettings");
+export const setSettings = createAction("currency/setSettings") as any;
 export const settingsSlice = createSlice({
   name: "settings",
   initialState,

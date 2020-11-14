@@ -4,7 +4,10 @@ import { getSagaExtension } from "redux-dynamic-modules-saga";
 
 import { settingsSlice, getSettingsModule } from "@/modules/SettingsForm/";
 import { currencySlice, getCurrencyModule } from "@/modules/Currency/";
-import { animationSlice, getAnimationModule } from "@/modules/AnimationControls/";
+import {
+  animationSlice,
+  getAnimationModule,
+} from "@/modules/AnimationControls/";
 import { loginSlice, getLoginModule } from "@/modules/Auth";
 
 export const reducer = combineReducers({

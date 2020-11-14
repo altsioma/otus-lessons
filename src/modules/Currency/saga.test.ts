@@ -10,8 +10,8 @@ import {
 } from "@/modules/SettingsForm/reducer";
 import * as faker from "faker";
 import { getCurrencyFromApi, ratesToCurrency } from "./services/Currency";
-import { responseRUB } from "@/../__mocks__/rates";
 import { throwError } from "redux-saga-test-plan/providers";
+import { responseMock } from "@/modules/Currency/services/mock";
 
 describe("Currency from API load", () => {
   it("check is fetching and transform data ok", () => {
@@ -20,13 +20,12 @@ describe("Currency from API load", () => {
     )
       .fill(null)
       .map(() => faker.random.number({ min: 1, max: 100, precision: 0.01 }));
-    console.log(transformedResponseData);
     return expectSaga(getCurrency)
       .withReducer(reducer)
       .provide([
         [select(selectCurrentCurrency), "RUB"],
         [select(selectPeriod), { from: "2020-10-01", to: "2020-10-10" }],
-        [matchers.call.fn(getCurrencyFromApi), responseRUB],
+        [matchers.call.fn(getCurrencyFromApi), responseMock],
         [matchers.call.fn(ratesToCurrency), transformedResponseData],
       ])
       .put(actions.pending())
@@ -47,13 +46,17 @@ describe("Currency from API load", () => {
         [matchers.call.fn(getCurrencyFromApi), throwError(error)],
       ])
       .put(actions.pending())
-      .put(actions.rejected(error))
+      .put(actions.rejected(error.message))
       .hasFinalState({
         loading: false,
-        data: null,
-        error: error,
+        data: [],
+        error: error.message,
       })
       .run();
+  });
+  it("is watch request flow working correctly", () => {
+    const saga = testSaga(watchRequest);
+    saga.next().takeLatest(fetchCurrency, getCurrency).next().finish();
   });
   describe("Full currency fetch flow", () => {
     it("fetch data flow with action subscribe", () => {
@@ -61,7 +64,7 @@ describe("Currency from API load", () => {
       saga
         .next()
         .fork(watchRequest)
-        .save("currecnFetchFlow")
+        .save("currencyFetchFlow")
         .next()
         .take([setSettings, settingsAction.setCurrency])
         .next()

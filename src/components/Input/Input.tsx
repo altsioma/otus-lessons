@@ -30,13 +30,13 @@ export const InputWrapperStyled = styled.div`
 `;
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  labelText: string;
+  labelText?: string;
 }
 
 export const Input: React.FC<InputProps> = ({ labelText, ...props }) => {
   return (
     <InputWrapperStyled>
-      <LabelStyled>{labelText}</LabelStyled>
+      {labelText && <LabelStyled>{labelText}</LabelStyled>}
       <InputStyled {...props} />
     </InputWrapperStyled>
   );

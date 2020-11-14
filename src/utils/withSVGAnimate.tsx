@@ -12,7 +12,7 @@ type WithAnimateProps = {
   onAnimationStateChange?: (buttonState: AnimationStateType) => void;
 };
 
-export const withAnimate = <Props extends Record<string, unknown>>(
+export const withSVGAnimate = <Props extends Record<string, any>>(
   Component: React.ComponentType<Props>
 ): React.FC<Props & WithAnimateProps> =>
   function Animate({ playState, speed, onAnimationStateChange, ...props }) {
@@ -39,7 +39,7 @@ export const withAnimate = <Props extends Record<string, unknown>>(
       }
     };
 
-    const ref = useCallback(animateCallback, [step]);
+    const ref = useCallback(animateCallback, [step, playState]);
     useEffect(() => {
       if (playState === "running") {
         timerId = setInterval(() => setStep(i++), 1000 / (fps * speed));
@@ -47,6 +47,6 @@ export const withAnimate = <Props extends Record<string, unknown>>(
         clearInterval(timerId);
       }
       return () => clearInterval(timerId);
-    }, [playState]);
+    }, [playState, speed]);
     return <Component {...(props as Props)} ref={ref} />;
   };

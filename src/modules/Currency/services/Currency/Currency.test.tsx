@@ -1,21 +1,42 @@
-import { responseRUB, responseUSD } from "@/../__mocks__/rates";
-import { ratesToCurrency, normalize } from "./index";
+import {
+  ratesToCurrency,
+  normalize,
+  getCurrencyFromApi,
+  currencyToGraph,
+} from "./index";
+import {
+  responseMock,
+  period,
+  expectedFormatted,
+} from "@/modules/Currency/services/mock";
 
-describe("Currency tests cases", () => {
-  it("Convert raw data for RUB rates working corect", () => {
-    const expectedData = [81.1888, 79.6793];
-    expect(ratesToCurrency(responseRUB.rates, "RUB")).toEqual(
-      expect.arrayContaining(expectedData)
-    );
+describe("Currency services tests cases", () => {
+  global.fetch = jest.fn().mockResolvedValue({
+    json: () => responseMock,
   });
 
-  it("Convert raw data for USD rates working corect", () => {
-    const expectedData = [1.1414, 1.12];
-    expect(ratesToCurrency(responseUSD.rates, "USD")).toEqual(
-      expect.arrayContaining(expectedData)
-    );
+  it("Is fetching data work correct", async () => {
+    expect(
+      await getCurrencyFromApi("RUB", period).then((data) => data)
+    ).toEqual(responseMock);
   });
 
+  it("Convert raw data respinse for RUB rates working corect", () => {
+    expect(ratesToCurrency(responseMock.rates, "RUB")).toEqual(
+      expect.arrayContaining([expectedFormatted])
+    );
+  });
+  it("Convert currency rates format to svg is working correct", () => {
+    expect(currencyToGraph([60, 80, 90], { width: 600, height: 300 })).toEqual([
+      [65, 300],
+      [243.33333333333334, 200],
+      [421.6666666666667, 0],
+    ]);
+  });
+
+  it("Convert currency rates for empty values is working correct and don`t crash", () => {
+    expect(currencyToGraph([], { width: 600, height: 300 })).toEqual([]);
+  });
   it("Normalize for value=1 and range min=10 and max=100 is 0", () => {
     expect(normalize(10, 10, 100)).toBe(0);
   });

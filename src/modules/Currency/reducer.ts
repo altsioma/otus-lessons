@@ -22,7 +22,7 @@ export const currencySlice = createSlice({
     rejected: (state, action) => ({
       ...state,
       loading: false,
-      error: action.payload ? action.payload : "",
+      error: action.payload,
     }),
     fulfilled: (state, action) => ({
       ...state,

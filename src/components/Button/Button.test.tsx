@@ -24,7 +24,7 @@ describe("Button render check", () => {
     expect(onClick).toHaveBeenCalled();
   });
 
-  it("Button with color parameter 'green' has color 'green' ", () => {
+  it("Button with color parameter 'green' has color 'green'", () => {
     const wrapper = mount(
       <Button
         color="green"
@@ -36,7 +36,7 @@ describe("Button render check", () => {
     expect(wrapper.props()).toHaveProperty("color", "green");
   });
 
-  it("Button with textButton parameter 'violet' has text 'violet' ", () => {
+  it("Button with textButton parameter 'violet' has text 'violet'", () => {
     const wrapper = mount(
       <Button
         color="violet"

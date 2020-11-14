@@ -48,6 +48,7 @@ export class SettingsFormComponent extends React.PureComponent<Props> {
           <Input
             labelText="Date from:"
             type="text"
+            name="period_from"
             placeholder="YYYY-MM-DD"
             value={this.props.period.from}
             onChange={this.changePeriod("from")}
@@ -55,6 +56,7 @@ export class SettingsFormComponent extends React.PureComponent<Props> {
           <Input
             labelText="Date to:"
             type="text"
+            name="period_to"
             placeholder="YYYY-MM-DD"
             value={this.props.period.to}
             onChange={this.changePeriod("to")}
@@ -67,6 +69,7 @@ export class SettingsFormComponent extends React.PureComponent<Props> {
           <Input
             labelText="Width:"
             type="number"
+            name="width"
             placeholder="px"
             value={this.props.area.width}
             onChange={this.changeArea("width")}
@@ -74,6 +77,7 @@ export class SettingsFormComponent extends React.PureComponent<Props> {
           <Input
             labelText="Height:"
             type="number"
+            name="height"
             placeholder="px"
             value={this.props.area.height}
             onChange={this.changeArea("height")}

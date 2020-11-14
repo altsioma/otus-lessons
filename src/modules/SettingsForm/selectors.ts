@@ -1,5 +1,5 @@
 import { CurrencyState } from "@/store";
-import { DatePeriodType } from "@types";
+import { DatePeriodType } from "@/types";
 import { CurrencyAvaiableType } from "@/types";
 
 export const selectPeriod = (state: CurrencyState): DatePeriodType =>
